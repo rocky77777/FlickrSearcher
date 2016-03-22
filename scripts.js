@@ -17,31 +17,36 @@ angular.module('flickrSearcher', [])
 .controller('MyController', function($scope, $http, $sce) {
 	
 	$scope.submitted = false;
-	$scope.embedUrl = "https://farm{farmId}.staticflickr.com/{serverId}/{id}_{secret}.jpg";
+	// $scope.embedUrl = "https://farm{farmId}.staticflickr.com/{serverId}/{id}_{secret}.jpg";
 
-	$scope.trustSrc = function(src) {
-		return $sce.trustAsResourceUrl(src);
-	};
+	// $scope.trustSrc = function(src) {
+	// 	return $sce.trustAsResourceUrl(src);
+	// };
 
 	$scope.searchFlickr = function(keyword) {
 
 		$scope.keyword = keyword;
 		$scope.submitted = true;
 
-		var url = "http://api.flickr.com/services/rest";
+		var url = "https://api.flickr.com/services/rest";
 		var request = {
 			api_key: "9a5dfe2de5e497078ad0c01879ea9d1a",
 			per_page: 10,
-			method: "flickr.photos.search"
+			method: "flickr.photos.search",
+			text: keyword,
+			format: "json",
+			jsoncallback: "JSON_CALLBACK"
 		};
 
 		$http({
-			method: 'GET',
+			method: 'JSONP',
 			url: url,
 			params: request
 		})
 		.then(function(response) {
-			$scope.results = response.data.photos.photo;
+			console.log(response.data);
+			$scope.results = response.data;
+			console.log(typeof $scope.results);
 		},
 		function(response) {
 			alert('error');

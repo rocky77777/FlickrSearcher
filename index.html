@@ -21,9 +21,11 @@
 				<h2 ng-if="submitted">Searching Flickr for photos with keyword "{{ keyword }}".</h2>
 				<h2>We found {{ results.length }} results for "{{ keyword }}"</h2>
 				<div ng-repeat="photo in photos">
-					<iframe ng-src="{{ trustSrc(embedUrl + response.data.photos.photo) }}" frameborder="0" width="200" height="180"></iframe>
+					<iframe ng-src="$sce.trustAsResourceUrl(https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}.jpg)" frameborder="0" width="200" height="180"></iframe>
 				</div>
 			</div>
 		</div>
 	</body>
 	</html>
+
+<!-- 	https://farm2.staticflickr.com/1659/25647066070_06fa31a5bf.jpg -->
