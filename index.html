@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script data-require="angular.js@1.3.10" data-semver="1.3.10" src="https://code.angularjs.org/1.3.10/angular.js"></script>
+	<script type="text/javascript" src="https://code.angularjs.org/1.2.18/angular-animate.min.js"></script>
 	<script src="scripts.js"></script>
 </head>
 <body>
@@ -17,11 +18,11 @@
 				<input class="textInput" type="text" name="keyword" ng-model="keyword" required/>
 				<input class="inputButton" type="submit" value="Submit" id="submit" />
 			</form>
-			<div class="results">
-				<h2 ng-if="submitted">Searching Flickr for photos with keyword "{{ keyword }}".</h2>
-				<h2>We found {{ results.length }} results for "{{ keyword }}"</h2>
-				<div ng-repeat="photo in photos">
-					<iframe ng-src="$sce.trustAsResourceUrl(https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}.jpg)" frameborder="0" width="200" height="180"></iframe>
+			<h2 ng-if="submitted" class="submitted">Searching Flickr for photos with keyword "{{ keyword }}".</h2>
+			<div class="results" ng-if="results">
+				<h2>We found {{ results.length }} results for "{{ oldKeyword }}"</h2>
+				<div class="imageDisplay" ng-animate="'animate'" ng-repeat="result in results">
+					<img class="imageDisplay" ng-src="https://farm{{result.farm}}.staticflickr.com/{{result.server}}/{{result.id}}_{{result.secret}}.jpg" width="200" height="180"></img>
 				</div>
 			</div>
 		</div>

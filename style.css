@@ -84,6 +84,12 @@ body {
 	border-left: 1px solid black;
 }
 
+.submitted {
+	text-align: center;
+	font-size: 18pt;
+	padding-top: 5px;
+}
+
 /*--makes button look like it's being pressed*/
 .buttonPressed {
 	border-bottom: 1px solid black;
@@ -96,4 +102,22 @@ body {
 	text-align: center;
 	font-size: 18pt;
 	line-height: 40px;
+}
+
+.imageDisplay {
+	width: 200px;
+	height: 200px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	display: inline-block;
+	transition:0.5s linear all;
+}
+
+/*--------------------------------
+animations
+--------------------------------*/
+
+.imageDisplay:hover {
+    width: 220px;
+    height: 220px;
 }

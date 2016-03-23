@@ -1,31 +1,27 @@
-// $(document).ready(function(){
-//     $('.inputButton').on('mousedown', function() {
-//     	$('.inputButton').addClass("buttonPressed");
-//     })
-//     $('.inputButton').on('mouseleave', function() {
-//     	$('.inputButton').removeClass("buttonPressed");
-//     })
-//     $('.inputButton').on('mouseup', function() {
-//     	$('.inputButton').removeClass("buttonPressed");
-//     })
-// });
+$(document).ready(function(){
+    $('.inputButton').on('mousedown', function() {
+    	$('.inputButton').addClass("buttonPressed");
+    })
+    $('.inputButton').on('mouseleave', function() {
+    	$('.inputButton').removeClass("buttonPressed");
+    })
+    $('.inputButton').on('mouseup', function() {
+    	$('.inputButton').removeClass("buttonPressed");
+    })
+});
 
-angular.module('flickrSearcher', [])
+angular.module('flickrSearcher', ['ngAnimate'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.useXDomain = true;
 })
 .controller('MyController', function($scope, $http, $sce) {
 	
 	$scope.submitted = false;
-	// $scope.embedUrl = "https://farm{farmId}.staticflickr.com/{serverId}/{id}_{secret}.jpg";
-
-	// $scope.trustSrc = function(src) {
-	// 	return $sce.trustAsResourceUrl(src);
-	// };
 
 	$scope.searchFlickr = function(keyword) {
 
 		$scope.keyword = keyword;
+		$scope.oldKeyword = $scope.keyword;
 		$scope.submitted = true;
 
 		var url = "https://api.flickr.com/services/rest";
@@ -44,9 +40,10 @@ angular.module('flickrSearcher', [])
 			params: request
 		})
 		.then(function(response) {
-			console.log(response.data);
-			$scope.results = response.data;
-			console.log(typeof $scope.results);
+			console.log(response.data.photos.photo);
+			$scope.results = response.data.photos.photo;
+			$scope.submitted = false;
+			$scope.keyword = "";
 		},
 		function(response) {
 			alert('error');
